@@ -1,6 +1,12 @@
 package javaStreamsAndLambdaExpression;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.testng.Assert;
 
 public class test1 {
 
@@ -54,9 +60,34 @@ public class test1 {
 		names.stream().map(s->s.toUpperCase()).forEach(s->System.out.println(s));
 		System.out.println("******************************************\n");
 		
+		
 //		without filter, without sorting & without maping
 		names.stream().forEach(s->System.out.println(s));
 		System.out.println("******************************************\n");
+		
+//		Concatenating the 2 arraylists
+		ArrayList<String> names2 = new ArrayList<String>();
+		names2.add("Dassault");
+		names2.add("Systems");
+		names2.add("Bangalore");
+		names2.add("Jaynagar");
+		names2.add("4th Cross");
+		
+		
+		Stream<String> newNames = Stream.concat(names.stream(), names2.stream());
+//		newNames.forEach(s->System.out.println(s));
+		boolean flag = newNames.anyMatch(s->s.equalsIgnoreCase("Adam"));
+		Assert.assertTrue(flag);
+		System.out.println("******************************************\n");
+		
+//		Print unique numbers from the arraylist
+		List<Integer> values1 = Arrays.asList(3,2,2,2,1,4,5,8,6,7,9);
+		values1.stream().distinct().sorted().limit(5).forEach(a->System.out.print(a+", "));
+		List<Integer> li = values1.stream().distinct().sorted().collect(Collectors.toList());
+		System.out.println("\n******************************************\n");
+		System.out.println(li.get(5));
+		System.out.println("******************************************\n");
+		
 	}
 
 }
